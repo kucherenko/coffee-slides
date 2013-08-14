@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <!--This one seems to work all the time, but really small on ipad-->
+    <!--<meta name="viewport" content="initial-scale=0.4">-->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" media="all" href="theme/css/default.css">
+    <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+    <base target="_blank">
+    <!-- This amazingness opens all links in a new tab. -->
+    <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+<slide class="logoslide nobackground">
+    <article class="flexbox vcenter">
+        <span><img src="images/coffee/logo.png"></span>
+    </article>
+</slide>
+
+<slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="images/coffee/coffeescript_logo.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+        <h1 data-config-title><!-- populated from slide_config.json --></h1>
+
+        <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+
+        <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+</slide>
+
+<slide class="logoslide nobackground" style="background-image: url(images/coffee/P-Coffee_Zoom.jpg)">
+    <article class="flexbox vcenter"></article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Why CoffeeScript?</h2>
+    </hgroup>
+    <article>
+        <ul>
+            <li>Variable safety</li>
+            <li>Easy integration with existing JS libraries</li>
+            <li>Readable code</li>
+            <li>Powerful OOP</li>
+            <li>Everything is an expression</li>
+        </ul>
+    </article>
+</slide>
+
+<slide class="nobackground">
+    <article class="flexbox vcenter">
+        <span><img src="images/coffee/what.gif"></span>
+        <footer>Ну и ...?</footer>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Why CoffeeScript?</h2>
+    </hgroup>
+    <article>
+        <ul>
+            <li>Можно так <b>are?.you?.here?</b></li>
+            <li>И так тоже можно <b>3 < x < 5</b></li>
+            <li>Забудьте hasOwnProperty у объектов, делайте так: <b>for own x of obj</b></li>
+            <li>Строка на строке сидит и строкой погоняет: <b>"Hello #{name}"</b></li>
+            <li>Массивы создаются и обходятся с полпинка <b>for i in [1..5]</b></li>
+            <li>Выкусываем массив из массива - тоже просто: <b>myArray[2..3]</b></li>
+            <li>Замыкания, такие замыкания : <b>(do (x) -> ...)</b></li>
+        </ul>
+    </article>
+</slide>
+
+<slide class="nobackground">
+    <article class="flexbox vcenter">
+        <span><img src="images/coffee/ura.gif"></span>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Install</h2>
+    </hgroup>
+    <article>
+        <ul>
+            <li>NodeJS</li>
+            <li>npm</li>
+        </ul>
+      <pre class="prettyprint" data-lang="shell">
+~$: npm install coffee-script -g
+      </pre>
+        <span><img src="images/coffee/console_mimimi.jpg" width="450"></span>
+        <footer>Консолька ми-ми-ми!</footer>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Usage</h2>
+    </hgroup>
+    <article class="smaller">
+      <pre class="prettyprint" data-lang="shell">
+~$ coffee -h
+
+Usage: coffee [options] path/to/script.coffee -- [args]
+
+If called without options, `coffee` will run your script.
+  -b, --bare         compile without a top-level function wrapper
+  -c, --compile      compile to JavaScript and save as .js files
+  -e, --eval         pass a string from the command line as input
+  -h, --help         display this help message
+  -i, --interactive  run an interactive CoffeeScript REPL
+  -j, --join         concatenate the source CoffeeScript before compiling
+  -m, --map          generate source map and save as .map files
+  -n, --nodes        print out the parse tree that the parser produces
+      --nodejs       pass options directly to the "node" binary
+  -o, --output       set the output directory for compiled JavaScript
+  -p, --print        print out the compiled JavaScript
+  -s, --stdio        listen for and compile scripts over stdio
+  -l, --literate     treat stdio as literate style coffee-script
+  -t, --tokens       print out the tokens that the lexer/rewriter produce
+  -v, --version      display the version number
+  -w, --watch        watch scripts for changes and rerun commands
+</pre>
+    </article>
+</slide>
+<slide>
+    <hgroup>
+        <h2>Usage</h2>
+
+        <h3>Examples</h3>
+    </hgroup>
+    <article class="smaller">
+        Run CoffeeScript file
+        <pre class="prettyprint" data-lang="shell">~$ coffee src/example1.coffee </pre>
+        Compile all files from directory <b>src</b> to <b>output</b> directory
+        <pre class="prettyprint" data-lang="shell">~$ coffee -c -o output/ src/</pre>
+        Evaluate CoffeeScript code
+        <pre class="prettyprint" data-lang="shell">~$ coffee -e "console.log 'Hello World'"</pre>
+        Watch directory <b>src</b> for changes and compile CoffeeScript code to <b>output</b>
+        <pre class="prettyprint" data-lang="shell">~$ coffee --output output/ -cw src/</pre>
+        Concatenate the source CoffeeScript before compiling
+        <pre class="prettyprint" data-lang="shell">~$ coffee --join output/all.js --compile src/*.coffee</pre>
+        Start Read-eval-print loop (Ctrl+V - multiline mode)
+        <pre class="prettyprint" data-lang="shell">~$ coffee</pre>
+    </article>
+</slide>
+
+<slide class="nobackground">
+    <article class="flexbox vcenter">
+        <span><img src="images/coffee/installed.gif"></span>
+        <footer>Все легко!</footer>
+    </article>
+</slide>
+
+
+<slide>
+    <hgroup>
+        <h2>Variables</h2>
+    </hgroup>
+    <article class="smaller">
+        <pre class="prettyprint" data-lang="coffeescript">language = 'CoffeeScript'</pre>
+      <pre class="prettyprint" data-lang="javascript">(function() {
+  var language;
+
+  language = 'CoffeeScript';
+
+}).call(this);</pre>
+        <span><img src="images/coffee/safe.jpg" width="430"></span>
+        <footer>Весь код обернут в безопасную функцию, все переменные только в локальном контексте.</footer>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Functions</h2>
+    </hgroup>
+    <article class="smaller">
+        <pre class="prettyprint" data-lang="coffeescript">hello = -> console.log "Hello"
+sum = (a, b) -> a + b
+sum 1, 2    # returns 3
+sum(1, 2)   # returns 5
+hello()     # write 'Hello' in console
+hello       # return function hello
+        </pre>
+        <pre class="prettyprint" data-lang="javascript">hello = function() {
+    return console.log("Hello");
+};
+sum = function(a, b) {
+    return a + b;
+};
+sum(1, 2);
+sum(1, 2);
+hello();
+hello;
+        </pre>
+        <ul>
+            <li>было <b>function(a, b)</b> стало <b>(a, b) -></b></li>
+            <li>было <b>function()</b> стало <b>-></b></li>
+            <li>всё является выражением - всё старается вернуть значение</li>
+        </ul>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Functions</h2>
+    </hgroup>
+    <article class="smaller">
+        <pre class="prettyprint" data-lang="coffeescript">
+sum_multiply = (a, b) -> [ a + b, a * b]
+[ sum, multiply ] = sum_multiply 1, 2
+sum        # returns 3
+multiply   # returns 2
+        </pre>
+        <span><img src="images/coffee/magic.png" width="300"></span>
+        <footer class="source">Чуточку магии - возвращаем результат и устанавливаем переменные в массиве.(Поправляя очечки) Это все Реструктурирующее присваивание.</footer>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Functions</h2>
+    </hgroup>
+    <article class="smaller">
+        <pre class="prettyprint" data-lang="coffeescript">
+defaultValueFunction = (language = 'CoffeeScript') -> alert language
+
+myFavoriteCoffee = (first, second, others...) ->
+  console.log first
+  console.log second
+  console.log others
+
+types = ['espresso', 'tirkish', 'latte', 'cappuccino']
+
+myFavoriteCoffee types...
+        </pre>
+        <ul>
+            <li>В функции можно передавать переменные с значением по умолчанию.</li>
+            <li>Многоточие - клевая штука, чтобы забрать все переданные параметры и вызвать функцию с массивом, в качестве параметров.</li>
+        </ul>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Scope</h2>
+    </hgroup>
+    <article class="smaller">
+    <pre class="prettyprint" data-lang="coffeescript">language = 'CoffeeScript'
+myFunc = ->
+  coffee = 'Espresso'
+  language = 'JavaScript'
+       </pre>
+       <pre class="prettyprint" data-lang="javascript">
+language = 'CoffeeScript';
+myFunc = function() {
+    var coffee;
+    coffee = 'Espresso';
+    return language = 'JavaScript';
+};
+</pre>
+        <span><img src="images/coffee/remember.jpg" width="100"></span>
+        <footer class="source">Нужно помнить, что внешние переменные не переопределяются внутри функций.</footer>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Arrays</h2>
+    </hgroup>
+    <article class="smaller">
+    <pre class="prettyprint" data-lang="coffeescript">
+
+ground_coffee = ['extra coarse', 'coarse', 'coarse-medium', 'medium', 'medium-fine', 'fine', 'extra-fine']
+
+matrix = [
+  1, 0, 1
+  0, 0, 1
+  1, 1, 0
+]</pre>
+       <pre class="prettyprint" data-lang="javascript">var ground_coffee;
+
+ground_coffee = ['extra coarse', 'coarse', 'coarse-medium', 'medium', 'medium-fine', 'fine', 'extra-fine'];
+
+matrix = [1, 0, 1, 0, 0, 1, 1, 1, 0];</pre>
+        <footer>Забудьте про запятые - пишите с новой строки</footer>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Objects</h2>
+    </hgroup>
+    <article class="smaller">
+    <pre class="prettyprint" data-lang="coffeescript">
+cappuccino = {espresso: 1, mix: true, class: 'medium'}
+
+coffee_drinks =
+  turkish_coffee:
+    ground: 'fine'
+    production_method: 'Turkish Cezve'
+</pre>
+       <pre class="prettyprint" data-lang="javascript">cappuccino = {
+    espresso: 1,
+    mix: true,
+    "class": 'medium'
+};
+
+coffee_drinks = {
+    turkish_coffee: {
+        ground: 'fine',
+        production_method: 'Turkish Cezve'
+    }
+};
+</pre>
+        <footer class="source">Спорим, что вы будете писать json а не yaml для объектов?</footer>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Arrays</h2>
+    </hgroup>
+    <article class="smaller">
+    <pre class="prettyprint" data-lang="coffeescript">
+my_array = [1..10]
+my_new_array = [10...-10]
+
+coarse_grounds = ground_coffee[0..2]
+medium_grounds = ground_coffee[2..4]
+fine_grounds = ground_coffee[4..]
+coarse_grounds = ground_coffee[0...3]
+
+ground_coffee[0..2] = ['EC', 'C', 'CM']</pre>
+       <pre class="prettyprint" data-lang="javascript">
+my_array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+my_new_array = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0, -1, -2, -3, -4, -5, -6, -7, -8, -9];
+
+coarse_grounds = ground_coffee.slice(0, 3);
+medium_grounds = ground_coffee.slice(2, 5);
+fine_grounds = ground_coffee.slice(4);
+coarse_grounds = ground_coffee.slice(0, 3);
+
+[].splice.apply(ground_coffee, [0, 3].concat(_ref = ['EC', 'C', 'CM'])), _ref; </pre>
+        <footer class="source">Самые прекрасные моменты работы с массивами.</footer>
+    </article>
+
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Arrays</h2>
+    </hgroup>
+    <article class="smaller">
+    <pre class="prettyprint" data-lang="coffeescript">
+ground_coffee.reverse()               # reverse array
+
+Math.max [12, 32, 11, 67, 1, 3]...    # max element of array
+
+[1 ,2, 3].concat [ 4, 5, 6]           # concatenating arrays
+
+a = 1; b = 3                          # swap variables
+[a, b] = [b, a]
+    </pre>
+    <pre class="prettyprint" data-lang="javascript">
+ground_coffee.reverse();
+
+Math.max.apply(Math, [12, 32, 11, 67, 1, 3]);
+
+[1, 2, 3].concat([4, 5, 6]);
+
+a = 1;
+b = 3;
+_ref1 = [b, a], a = _ref1[0], b = _ref1[1];
+    </pre>
+        <footer class="source">Не забываем, что ничего JavaScript-овое нам не чуждо.</footer>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Operators and aliases</h2>
+    </hgroup>
+    <article class="smaller">
+        <table>
+            <tr>
+                <th>CoffeeScript</th>
+                <th>JavaScript</th>
+            </tr>
+            <tr>
+                <td>this, @</td>
+                <td>this</td>
+            </tr>
+            <tr>
+                <td>is</td>
+                <td>===</td>
+            </tr>
+            <tr>
+                <td>isnt</td>
+                <td>!==</td>
+            </tr>
+            <tr>
+                <td>not</td>
+                <td>!</td>
+            </tr>
+            <tr>
+                <td>and</td>
+                <td>&&</td>
+            </tr>
+            <tr>
+                <td>or</td>
+                <td>||</td>
+            </tr>
+            <tr>
+                <td>true, yes, on</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td>false, no, off</td>
+                <td>false</td>
+            </tr>
+            <tr>
+                <td>of</td>
+                <td>in</td>
+            </tr>
+            <tr>
+                <td>in</td>
+                <td>no JS equivalent</td>
+            </tr>
+        </table>
+        <footer class="source"></footer>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>?</h2>
+    </hgroup>
+    <article class="smaller">
+    <pre class="prettyprint" data-lang="coffeescript">
+coffee = 'espresso' if morning?
+cups = 0
+cups ?= 1
+
+sugar = count ? 1;
+
+coffee = one?.coffee?().please?.no?.sugar?
+    </pre>
+       <pre class="prettyprint" data-lang="javascript">if (typeof morning !== "undefined" && morning !== null) {
+    coffee = 'espresso';
+}
+cups = 0;
+if (cups == null) {
+    cups = 1;
+}
+sugar = typeof count !== "undefined" && count !== null ? count : 1;
+coffee = (typeof one !== "undefined" && one !== null ? typeof one.coffee === "function" ?<br/>(_ref4 = one.coffee().please) != null ? (_ref5 = _ref4.no) != null ? _ref5.sugar : void 0 :<br/> void 0 : void 0 : void 0) != null;</pre>
+        <footer class="source">Оператор проверки существования творит чудеса, в JavaScript необходим титанический труд, для проверки переменных на существование.</footer>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Strings</h2>
+    </hgroup>
+    <article class="smaller">
+    <pre class="prettyprint" data-lang="coffeescript">coffee = 'espresso'
+i_like = "my favorite coffee is #{coffee}"
+
+multi_line = """
+       &lt;div class="article">
+         &lt;h1>Coffee&lt;/h1>
+         &lt;p>My coffee is #{coffee}&lt;/p>
+       &lt;/div>
+       """
+</pre>
+       <pre class="prettyprint" data-lang="javascript">coffee = 'espresso';
+
+i_like = "my favorite coffee is " + coffee;
+
+multi_line = "&lt;div class=\"article\">\n  &lt;h1>Coffee&lt;/h1>\n  &lt;p>My coffee is " + coffee + "&lt;/p>\n&lt;/div>";</pre>
+        <footer class="source">Кавычки килограммами: одинарные <b>'</b>, двойные <b>"</b>, три двойных <b>"""</b> -
+            недорого, возможен торг.
+        </footer>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>RegExp</h2>
+    </hgroup>
+    <article class="smaller">
+    <pre class="prettyprint" data-lang="coffeescript">OPERATOR = /// ^ (
+  ?: [-=]>             # function
+   | [-+*/%<>&|^!?=]=  # compound assign / compare
+   | >>>=?             # zero-fill right shift
+   | ([-+:])\1         # doubles
+   | ([&|<>])\2=?      # logic / shift
+   | \?\.              # soak access
+   | \.{2,3}           # range or splat
+) ///
+
+"string".match OPERATOR
+"string".replace OPERATOR, 'link'
+    </pre>
+       <pre class="prettyprint" data-lang="javascript">OPERATOR = /^(?:[-=]>|[-+*\/%<>&|^!?=]=|>>>=?|([-+:])\1|([&|<>])\2=?|\?\.|\.{2,3})/;
+"string".match(OPERATOR);
+"string".replace(OPERATOR, 'link');
+</pre>
+        <span><img src="images/coffee/wall_larry_wall.jpg" width="80"></span>
+        <footer class="source">У программистов на Perl текут слезы радости, когда они это видят.</footer>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Strings</h2>
+    </hgroup>
+    <article class="smaller">
+    <pre class="prettyprint" data-lang="coffeescript">"espresso".toUpperCase()             # conver to to upper case
+"LATTE".toLowerCase()                # convert tolover case
+Array(3).join 'hello'                # repeat string
+"foo bar baz".split " "              # split string
+"  упс!  ".replace /^\s+|\s+$/g, ""  # remove whitespaces
+"string".substring 0,3               # str
+"string".indexOf "str"               # 0
+    </pre>
+       <pre class="prettyprint" data-lang="javascript">"espresso".toUpperCase();
+"LATTE".toLowerCase();
+Array(3).join("hello");
+"foo bar baz".split(" ");
+"  упс!  ".replace(/^\s+|\s+$/g, "");
+"string".substring(0, 3);
+"string".indexOf("str");</pre>
+        <span><img src="images/coffee/remember.jpg" width="80"></span>
+        <footer class="source">Помним, что ничего JavaScript-овое нам не чуждо.</footer>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>If and Unless statements</h2>
+    </hgroup>
+    <article class="smaller">
+    <pre class="prettyprint" data-lang="coffeescript">
+if i_like_it
+    console.log "Cool"
+else
+    console.log "Not Cool"
+
+if i_like_it then console.log "Cool" else console.log "Not Cool"
+
+console.log "Cool" if i_like_it
+
+letTheWildRumpusBegin() unless answer is no
+    </pre>
+        <footer class="source">If можно писать почти везде, можно вначале, можно в конце строки, можно несколько строк,
+            можно в одну. Если if не нравится пишите unless, он такой же какк if только наоборот.
+        </footer>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Loops</h2>
+    </hgroup>
+    <article class="smaller">
+    <pre class="prettyprint" data-lang="coffeescript">
+while count > 0
+    count -= 1
+
+until power_level > 9000
+  power_level += 1
+
+power_level++ while power_level <= 9000
+    </pre>
+    <pre class="prettyprint" data-lang="javascript">
+while (count > 0) {
+    count -= 1;
+}
+
+while (!(power_level > 9000)) {
+    power_level += 1;
+}
+
+while (power_level <= 9000) {
+    power_level++;
+}
+    </pre>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>For loop</h2>
+    </hgroup>
+    <article class="smaller">
+    <pre class="prettyprint" data-lang="coffeescript">
+drink coffee for coffee in ['espresso', 'espresso', 'latte']
+
+foods = ['broccoli', 'spinach', 'chocolate']
+eat food for food in foods when food isnt 'broccoli'
+
+shortNames = (name for name in list when name.length < 5)
+
+evens = (x for x in [0..10] by 2)
+
+for own key, value of object
+    </pre>
+    <span><img src="images/coffee/for.gif" width="200"></span>
+    <footer class="source">Очень гибко работает оператор for с массивами.</footer>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Switch When Else</h2>
+    </hgroup>
+    <article class="smaller">
+    <pre class="prettyprint" data-lang="coffeescript">
+switch day
+  when "Mon" then go work
+  when "Tue" then go relax
+  when "Thu" then go iceFishing
+  when "Fri", "Sat"
+    if day is bingoDay
+      go bingo
+      go dancing
+  when "Sun" then go church
+  else go work
+
+score = 76
+grade = switch
+  when score < 60 then 'F'
+  when score < 70 then 'D'
+  when score < 80 then 'C'
+  when score < 90 then 'B'
+  else 'A
+    </pre>
+    <footer class="source">Всегда не нравились мне свичи, но они всеравно продолжают существовать, вот в CoffeeScript они тоже есть.</footer>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Try Catch Finally</h2>
+    </hgroup>
+    <article class="smaller">
+    <pre class="prettyprint" data-lang="coffeescript">
+try
+  allHellBreaksLoose()
+  catsAndDogsLivingTogether()
+catch error
+  print error
+finally
+  cleanUp()
+    </pre>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Function binding</h2>
+    </hgroup>
+    <article class="smaller">
+    <pre class="prettyprint" data-lang="coffeescript">
+Account = (customer, cart) ->
+  @customer = customer
+  @cart = cart
+
+  $('.shopping_cart').bind 'click', (event) =>
+    @customer.purchase @cart
+    </pre>
+<pre class="prettyprint" data-lang="JavaScript">
+Account = function(customer, cart) {
+  var _this = this;
+  this.customer = customer;
+  this.cart = cart;
+  return $('.shopping_cart').bind('click', function(event) {
+    return _this.customer.purchase(_this.cart);
+  });
+};
+</pre>
+        <footer class="source">Оказывается функции можно создавать при помощи толстой стрелки => </footer>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Classes</h2>
+    </hgroup>
+    <article class="smaller">
+    <pre class="prettyprint" data-lang="coffeescript">
+class Coffee
+  constructor: (@name) ->
+
+  make: (minutes) ->
+    alert @name + " make #{minutes}m."
+
+    </pre>
+        <ul>
+            <li>Конструктор - consctructor</li>
+            <li>Параметры методов с @ в начале автоматически становятся полями класса</li>
+        </ul>
+    </article>
+</slide>
+<slide>
+    <hgroup>
+        <h2>Classes</h2>
+    </hgroup>
+    <article class="smaller">
+    <pre class="prettyprint" data-lang="coffeescript">
+class Coffee
+  @variable: "Hello"
+  other_variable: "World"
+
+Coffee.variable # 'Hello'
+Coffee.other_variable # undefined
+
+coffee = new Coffee
+
+coffee.other_variable # "World"
+    </pre>
+        <ul>
+            <li>Поля класса, объявленные с @ доступны в прототипе</li>
+            <li>Поля без @ - доступны в экземплярах класса</li>
+        </ul>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Classes</h2>
+    </hgroup>
+    <article class="smaller">
+    <pre class="prettyprint" data-lang="coffeescript">
+class Espresso extends Coffee
+  make: (minutes) ->
+    super 3
+
+myEspresso = new Espresso "Morning coffee"
+myEspresso.make()
+    </pre>
+        <ul>
+            <li>extends - наследование</li>
+            <li>super - вызов функции родителя</li>
+        </ul>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Classes</h2>
+    </hgroup>
+    <article class="smaller">
+    <pre class="prettyprint" data-lang="coffeescript">
+String::dasherize = ->
+  this.replace /_/g, "-"
+    </pre>
+    <pre class="prettyprint" data-lang="javascript">
+String.prototype.dasherize = function() {
+  return this.replace(/_/g, "-");
+};
+    </pre>
+        <footer>Было <b>String.prototype.</b> стало <b>String::</b></footer>
+    </article>
+</slide>
+
+<slide class="nobackground">
+    <article class="flexbox vcenter">
+        <span><img src="images/coffee/all.gif"></span>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Test Driven Development</h2>
+    </hgroup>
+    <article class="smaller">
+        <ul>
+            <li>TODO list (navigation map)</li>
+            <li>Test first</li>
+            <li>Assert first</li>
+            <li>Fail first</li>
+            <li>Baby steps</li>
+            <li>Continious intergation</li>
+        </ul>
+     </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Test Driven Development</h2>
+        <h3>Tools</h3>
+    </hgroup>
+    <article class="smaller">
+        <ul>
+            <li>Test frameworks</li>
+            <li>Continious intergation server (jenkins, teamcity, etc...)</li>
+            <li>Code quality tools (jshint, jslint, jscpd, coffeelint)</li>
+        </ul>
+     </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Test Driven Development</h2>
+        <h3>Frameworks</h3>
+    </hgroup>
+    <article class="smaller">
+        <ul>
+            <li>Jasmine</li>
+            <li>QUnit</li>
+            <li>Mocha & chai</li>
+            <li>nodeunit</li>
+        </ul>
+     </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Test Driven Development</h2>
+        <h3>Installation project env</h3>
+    </hgroup>
+    <article class="smaller">
+<pre class="prettyprint" data-lang="json">
+{
+  "name": "coffee-examples",
+  "version": "0.0.1",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --compilers coffee:coffee-script"
+  },
+  "dependencies": {
+    "coffee-script": "*",
+    "mocha": "*",
+    "chai": "*"
+  }
+}
+</pre>
+
+<pre  class="prettyprint" data-lang="shell">
+$ npm install
+</pre>
+        <footer>https://gist.github.com/kucherenko</footer>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Test Driven Development</h2>
+        <h3>Run tests</h3>
+    </hgroup>
+    <article class="smaller">
+<pre  class="prettyprint" data-lang="shell">
+$ npm test
+</pre>
+
+<pre  class="prettyprint" data-lang="shell">
+$ mocha --compilers coffee:coffee-script
+</pre>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Mocha & chai</h2>
+    </hgroup>
+    <article class="smaller">
+<pre  class="prettyprint" data-lang="coffeescript">
+chai = require 'chai'
+chai.should()
+</pre>
+
+<pre  class="prettyprint" data-lang="coffeescript">
+myObject.name.should.be.a 'string'
+myObject.name.should.equal 'bar'
+myObject.name.should.have.length 3
+myObject.should.have.property('tea').with.length 3
+</pre>
+<footer>Интерестное решение для тестирования, в глобальном <b>Object.prototype</b> определен метод <b>should</b></footer>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Mocha & chai</h2>
+    </hgroup>
+    <article class="smaller">
+<pre  class="prettyprint" data-lang="coffeescript">
+chai = require 'chai'
+expect = chai.expect
+</pre>
+
+<pre  class="prettyprint" data-lang="coffeescript">
+expect(myObject.name).to.equal "some string"
+expect(myObject.name).to.be.a 'string'
+expect(myObject.name).to.have.length 3
+expect(myObject).to.have.property('tea').with.length 3
+</pre>
+        <footer>BDD стиль написания тестов</footer>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Mocha & chai</h2>
+    </hgroup>
+    <article class="smaller">
+<pre  class="prettyprint" data-lang="coffeescript">
+chai = require 'chai'
+assert = chai.assert
+</pre>
+<pre  class="prettyprint" data-lang="coffeescript">
+assert.typeOf myObject.name, 'string', 'foo is a string'
+assert.equal myObject.name, 'bar', 'foo equal `bar`'
+assert.lengthOf myObject.name, 3, 'foo`s value has a length of 3'
+assert.lengthOf myObject, 3, 'beverages has 3 types of tea'
+</pre>
+    <footer>Классический XUnit стиль написания тестов</footer>
+    </article>
+</slide>
+
+
+<slide>
+    <hgroup>
+        <h2>Mocha & chai</h2>
+        <h2>first test</h2>
+    </hgroup>
+    <article class="smaller">
+<pre  class="prettyprint" data-lang="coffeescript">
+describe 'MyExample', ->
+    beforeEach(->
+        console.log "before"
+    )
+    it "should return sum of two numbers", ->
+        myExample = new MyExample
+        myExample.sum(1,2).should.equal(3)
+</pre>
+<pre  class="prettyprint" data-lang="coffeescript">
+class MyExample
+  constructor: (@name) ->
+  sum: (a, b) -> a + b
+
+module.exports = MyExample
+</pre>
+        <footer class="source">
+            Для BDD стиля написания тестов представлены следующие методы
+            describe(), it(), before(), after(), beforeEach(), and afterEach()
+        </footer>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Mocha & chai</h2>
+        <h2>first test </h2>
+    </hgroup>
+    <article class="smaller">
+<pre  class="prettyprint" data-lang="coffeescript">
+assert = chai.assert
+suite 'MyExample', ->
+    setup(->
+        console.log "setup"
+    )
+    test "should return sum of two numbers", ->
+        myExample = new MyExample
+        assert.equal myExample.sum(1,2), 3
+</pre>
+<pre  class="prettyprint" data-lang="coffeescript">
+class MyExample
+  constructor: (@name) ->
+  sum: (a, b) -> a + b
+
+module.exports = MyExample
+</pre>
+        <footer class="source">
+            Для TDD стиля написания тестов представлены следующие методы
+            suite(), test(), setup(), and teardown().
+        </footer>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Sinon.js</h2>
+    </hgroup>
+    <article class="smaller">
+        <p>installation</p>
+<pre  class="prettyprint" data-lang="coffeescript">
+{
+  "name": "coffee-examples",
+  "version": "0.0.1",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --compilers coffee:coffee-script"
+  },
+  "dependencies": {
+    ...
+    "chai": "*",
+    "sinon": "*",
+    "sinon-chai": "*"
+  }
+}
+</pre>
+        <pre class="prettyprint" data-lang="coffeescript">
+chai = require 'chai'
+sinon = require "sinon"
+sinonChai = require "sinon-chai"
+chai.use sinonChai
+        </pre>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Sinon.js</h2>
+    </hgroup>
+    <article class="smaller">
+        <p>usage</p>
+<pre  class="prettyprint" data-lang="coffeescript">
+describe 'MyExample', ->
+    spy = null
+    beforeEach ->
+        spy = sinon.spy()
+
+    it "sould call spy once", ->
+        spy "foo"
+        spy.should.have.been.calledWith "foo"
+</pre>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Sinon.js</h2>
+    </hgroup>
+    <article class="smaller">
+        <p>usage</p>
+<pre  class="prettyprint" data-lang="coffeescript">
+spy = sinon.spy()
+stub = sinon.stub()
+stub = sinon.stub().withArgs 1,2,3
+stub = sinon.stub().returns 1,2,3
+stub = sinon.stub().throws()
+mock = sinon.mock(myAPI);
+</pre>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Cake</h2>
+    </hgroup>
+    <article class="smaller">
+        <p>Cakefile</p>
+<pre  class="prettyprint" data-lang="coffeescript">
+task 'say:morning', 'Description of task', ->
+  console.log 'Good morning!'
+</pre>
+<pre  class="prettyprint" data-lang="coffeescript">
+
+{exec} = require "child_process"
+
+task "build", "build project", ->
+  exec "coffee -c -o output/ src/", (err, output) -> console.log output
+
+task "test", "run tests", ->
+  exec "./node_modules/.bin/mocha --compilers coffee:coffee-script", (err, output) ->
+    throw err if err
+    console.log output
+</pre>
+<pre class="prettyprint" data-lang="shell">$ cake say:morning</pre>
+    </article>
+</slide>
+
+
+<slide>
+    <hgroup>
+        <h2>CoffeeScript in browser</h2>
+    </hgroup>
+    <article class="smaller">
+        
+<pre  class="prettyprint" data-lang="html">
+&lt;!DOCTYPE html>
+&lt;html>
+&lt;head>
+    &lt;title>CoffeeScript Examples&lt;/title>
+    &lt;script src="http://coffeescript.org/extras/coffee-script.js" type="text/javascript">&lt;/script>
+    &lt;script type="text/coffeescript">
+        class A
+            constructor: ->
+                alert "Hello CoffeeScript"
+    &lt;/script>
+&lt;/head>
+&lt;body>
+
+&lt;/body>
+&lt;/html>
+</pre>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Brunch.io</h2>
+    </hgroup>
+    <article class="smaller">
+    <span><img src="images/coffee/brunch.png"></span>
+    <p>http://brunch.io/</p>
+<pre  class="prettyprint" data-lang="shell">
+$ npm install -g brunch
+</pre>
+        <div>Brunch is an assembler for HTML5 applications.</div>
+    </article>
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Bower.io</h2>
+    </hgroup>
+    <article class="smaller">
+    <span><img src="images/coffee/bower-logo.png" width="300"></span>
+    <p>http://bower.io/</p>
+<pre  class="prettyprint" data-lang="shell">
+$ npm install -g bower
+</pre>
+    <div>Bower is a package manager for the web.</div>
+    </article>
+
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Create new application</h2>
+    </hgroup>
+    <article class="smaller">
+<pre  class="prettyprint" data-lang="shell">
+$ brunch new gh:kucherenko/coffee-simple myProj
+
+$ cd myProj
+
+$ npm install
+
+$ bower install
+</pre>
+    </article>
+
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Start tests</h2>
+    </hgroup>
+    <article class="smaller">
+        <div>In browser</div>
+<pre  class="prettyprint" data-lang="shell">
+$ node test-server.js
+</pre>
+        <p>http://localhost:8003/tests.html</p>
+<div>In terminal</div>
+<pre  class="prettyprint" data-lang="shell">
+$ npm test
+</pre>
+
+    </article>
+
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Templates</h2>
+    </hgroup>
+    <article class="smaller">
+        http://coffeekup.org/
+<pre  class="prettyprint" data-lang="shell">
+$ npm install coffeekup -g
+</pre>
+<pre  class="prettyprint" data-lang="shell">
+$ npm install html2coffeekup -g
+</pre>
+    </article>
+
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Coffeekup</h2>
+    </hgroup>
+    <article class="smaller">
+<pre  class="prettyprint" data-lang="coffeescript">
+doctype 5
+html ->
+  head ->
+    title "#{@title or 'Untitled'} | My awesome website"
+  body ->
+    section ->
+      p i for i in [1..@max]
+</pre>
+<pre  class="prettyprint" data-lang="html">
+&lt;!DOCTYPE html>
+&lt;html>
+  &lt;head>
+    &lt;title>Foo | My awesome website&lt;/title>
+  &lt;/head>
+  &lt;body>
+    &lt;section>
+      &lt;p>1&lt;/p>
+      &lt;p>2&lt;/p>
+    &lt;/section>
+  &lt;/body>
+&lt;/html>
+</pre>
+    </article>
+
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Code standarts</h2>
+    </hgroup>
+    <article class="smaller">
+<pre  class="prettyprint" data-lang="shell">
+$ npm install -g coffeelint
+</pre>
+<pre  class="prettyprint" data-lang="shell">
+$ coffeelint path/to/file.coffee
+</pre>
+    </article>
+
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Code standarts</h2>
+    </hgroup>
+    <article class="smaller">
+<pre  class="prettyprint" data-lang="coffeescript">
+($ 'body') # Yes
+( $ 'body' ) # No
+
+console.log x, y # Yes
+console.log x , y # No
+</pre>
+    </article>
+
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Code standarts</h2>
+    </hgroup>
+    <article class="smaller">
+<pre  class="prettyprint" data-lang="coffeescript">
+test: (param = null) -> # Yes
+test: (param=null) -> # No
+
+# Yes
+x = 1
+y = 1
+fooBar = 3
+
+# No
+x      = 1
+y      = 1
+fooBar = 3
+</pre>
+    </article>
+
+</slide>
+<slide>
+    <hgroup>
+        <h2>Code standarts</h2>
+    </hgroup>
+    <article class="smaller">
+<pre  class="prettyprint" data-lang="coffeescript">
+foo = (arg1, arg2) -> # Yes
+foo = (arg1, arg2)-> # No
+
+bar = -> # Yes
+bar = () -> # No
+</pre>
+    </article>
+
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Code standarts</h2>
+    </hgroup>
+    <article class="smaller">
+<pre  class="prettyprint" data-lang="coffeescript">
+# No
+x = x + 1 # Increment x
+
+# Yes
+x = x + 1 # Compensate for border
+</pre>
+    </article>
+
+</slide>
+
+<slide>
+    <hgroup>
+        <h2>Naming Conventions</h2>
+    </hgroup>
+    <article class="smaller">
+        <ul>
+            <li>camelCase для переменных, методов и свойств</li>
+            <li>CamelCase для классов</li>
+            <li>CONSTANT_LIKE_THIS - для констант</li>
+            <li>_privateMethod: -> - для приватных методов</li>
+            <li></li>
+        </ul>
+    </article>
+
+</slide>
+
+<slide class="thank-you-slide segue nobackground">
+    <aside class="gdbar right"><img src="images/coffee/coffeescript_logo.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+        <h2>&lt;Thank You!&gt;</h2>
+    </article>
+    <p class="auto-fadein" data-config-contact>
+        <!-- populated from slide_config.json -->
+    </p>
+</slide>
+
+<slide class="backdrop"></slide>
+
+</slides>
+
+<script>
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function () {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+<!--[if IE]>
+<script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+<script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>
